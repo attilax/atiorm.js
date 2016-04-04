@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+ 
+<script>
+
+var apiurl="/wrmiServlet";
+var import_base="../";
+
+</script>
+<script type="text/javascript" src="../com.attilax/core/import.js"></script>
+<script type="text/javascript" src="../com.attilax/approot_jsV3q324.jsp"></script>
+  <script type="text/javascript" src="../com.attilax/text/str.js"></script>
+    <script type="text/javascript" src="../com.attilax/text/text.js"></script>
+
+<script type="text/javascript" src="../com.atilax.frmwk/jquery-1.8.3.min.js000"></script>
+<script type="text/javascript" src="../com.atilax.frmwk/jquery-1.11.3.js"></script>
+
+<script type="text/javascript" src="cfg.js"></script>
+<script type="text/javascript" src="js/js_ui.js"></script>
+
+<script type="text/javascript" src="../com.attilax/core/core.js"></script>
+<script type="text/javascript" src="../com.attilax/time/time.js"></script>
+ <script type="text/javascript" src="../com.attilax/templete/jquery.tmpl.js"></script>
+ <!--<script type="text/javascript" src="../com.atilax.frmwk/mobilize.js-master/js/mobilize.js"></script>-->
+ 
+ 
+ <!--amaz  start-->
+ 
+ <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
+
+  <!-- No Baidu Siteapp-->
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+  <link rel="icon" type="image/png" href="../com.atilax.frmwk/AmazeUI-2.4.2/assets/i/favicon.png">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="../com.atilax.frmwk/AmazeUI-2.4.2/assets/i/app-icon72x72@2x.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="../com.atilax.frmwk/AmazeUI-2.4.2/assets/i/app-icon72x72@2x.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="../com.atilax.frmwk/AmazeUI-2.4.2/assets/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+  <link rel="stylesheet" href="../com.atilax.frmwk/AmazeUI-2.4.2/assets/css/amazeui.min.css">
+  <link href="list_detail.css" rel="stylesheet" type="text/css" />
+  <link href="custom.css" rel="stylesheet" type="text/css" />
+  
+  <!-- amaz end-->
+
+<!--jq touch
+-->
+
+  <!--<link rel="stylesheet" href="../com.atilax.frmwk/jqt-demo-v1.0.1-0-g8a462395772f/themes/css/jqtouch.min.css" data-jqt-theme>
+    
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        
+        <script src="00../com.atilax.frmwk/jqt-demo-v1.0.1-0-g8a462395772f/lib/jquery/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script>
+         <script src="../com.atilax.frmwk/jqt-demo-v1.0.1-0-g8a462395772f/src/jqt.min.js" type="text/javascript" charset="utf-8"></script> 
+         <script src="../com.atilax.frmwk/jqt-demo-v1.0.1-0-g8a462395772f/src/jqtouch-jquery.min.js" type="application/x-javascript" charset="utf-8"></script> 
+           <script src="../com.atilax.frmwk/jqt-demo-v1.0.1-0-g8a462395772f/extensions/jqt.themeswitcher.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../com.atilax.frmwk/jqt-demo-v1.0.1-0-g8a462395772f/extensions/jqt.actionsheet.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../com.atilax.frmwk/jqt-demo-v1.0.1-0-g8a462395772f/extensions/jqt.menusheet.min.js" type="application/x-javascript" charset="utf-8"></script>
+   <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQT({
+                icon: 'jqtouch.png',
+                icon4: 'jqtouch4.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black-translucent',
+                preloadImages: []
+            });
+	</script>-->
+        <!--// jqt end-->
+        <script type="text/javascript" src="../com.attilax/core/yaml.js"></script> 
+      <script type="text/javascript" src="list.js"></script>  
+      <script type="text/javascript" src="../com.attilax/cms/cmsx.js"></script>
+        <script type="text/javascript" src="../com.attilax/core/core.js"></script>
+    <script type="text/javascript" src="../com.attilax/HRE.js"></script>
+    <script type="text/javascript" src="cfg.js"></script>
+<script type="text/javascript" src="test_data.js"></script><script type="text/javascript" src="searchbox.js"></script>
+<script type="text/javascript" src="../com.attilax/ui/toast.js"></script>
+<script >
+window.alert=Toast;
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" tracingsrc="img/main.jpg" tracingopacity="100">
+
+<input name="" type="button"  onclick=" KEYCODE_MENU_handle();" style="width:300px;"/><input name="" type="button"  onclick=" show_searchbox()" style="width:300px;" value="show search box"/>
+
+<input name="" type="button"  onclick=" javascript:window.location.reload()" style="width:100px;" value="reload"/>
+<div  id="cate_menu_div" style="position:absolute; top:0px; left:0px; height:300px; ">
+<ul id="table2_tmpl">
+<li>${cate}</li></ul>
+<ul id="table2"></ul>
+
+</div>
+<div style=" width:1280px; height:720px;" id="main_div">
+<div id="list_div">
+<div id="cate_img_div" style="display:inline-block;  float:left"><img src="cate.jpg" /></div>
+ <ul id="table1_tmpl" style="text-align:left;">
+  <li class="   datarow "  style=" list-style-type:none;" onkeypress="key_press_hadler()"  bigpic="${bigpic}"  thumb="${thumb}" desc="${desc}" title="${data_id}">${data_id}</li>
+  </ul>
+     <ul class="list" id="table1" style="padding:0px; display:inline-block;   margin:0px; padding:0px;">
+         
+     </ul>
+</div>
+
+<img id="thumb_img" /> 
+
+<div id="info_div">
+
+<div id="title_div_wrap">
+
+<table border="0">
+  <tr>
+    <td width="100"><span class="am-icon-play-circle-o am-icon-lg" style="font-size:40px;"></span></td>
+    <td><div id="title_div"></div>
+    评分：<span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span> <span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span>
+    </td>
+  </tr>
+</table>
+</div>
+<div  style="background-color:#000; height:7px; display:none "></div>
+
+<div id="desc_div"> </div>
+
+</div>
+
+
+
+
+</div>
+
+<!--searchBox1 -->
+<div id="searchBox1" class="searchbox">
+<div class="textbox"></div>
+        <div class="keypad">
+            <div style="width:812px;float:left">
+                <a class="key hover" href="javascript:void(0)" e="key">A</a>
+                <a class="key" href="javascript:void(0)" e="key">B</a>
+                <a class="key" href="javascript:void(0)" e="key">C</a>
+                <a class="key" href="javascript:void(0)" e="key">D</a>
+                <a class="key" href="javascript:void(0)" e="key">E</a>
+                <a class="key" href="javascript:void(0)" e="key">F</a>
+                <a class="key" href="javascript:void(0)" e="key">G</a>
+                <a class="key" href="javascript:void(0)" e="key">H</a>
+                <a class="key" href="javascript:void(0)" e="key">I</a>
+                <a class="key" href="javascript:void(0)" e="key">J</a>
+
+                <a class="key" href="javascript:void(0)" e="key">K</a>
+                <a class="key" href="javascript:void(0)" e="key">L</a>
+                <a class="key" href="javascript:void(0)" e="key">M</a>
+                <a class="key" href="javascript:void(0)" e="key">N</a>
+                <a class="key" href="javascript:void(0)" e="key">O</a>
+                <a class="key" href="javascript:void(0)" e="key">P</a>
+                <a class="key" href="javascript:void(0)" e="key">Q</a>
+                <a class="key" href="javascript:void(0)" e="key">R</a>
+                <a class="key" href="javascript:void(0)" e="key">S</a>
+                <a class="key" href="javascript:void(0)" e="key">T</a>
+
+                <a class="key" href="javascript:void(0)" e="key">U</a>
+                <a class="key" href="javascript:void(0)" e="key">V</a>
+                <a class="key" href="javascript:void(0)" e="key">W</a>
+                <a class="key" href="javascript:void(0)" e="key">X</a>
+                <a class="key" href="javascript:void(0)" e="key">Y</a>
+                <a class="key" href="javascript:void(0)" e="key">Z</a>
+                <a class="key" href="javascript:void(0)" e="key_space">空格</a>
+            </div>
+            <div style="width:274px;float:left">
+                <a class="key" href="javascript:void(0)" e="key">1</a>
+                <a class="key" href="javascript:void(0)" e="key">2</a>
+                <a class="key" href="javascript:void(0)" e="key">3</a>
+                <a class="key" href="javascript:void(0)" e="key">4</a>
+                <a class="key" href="javascript:void(0)" e="key">5</a>
+                <a class="key" href="javascript:void(0)" e="key">6</a>
+                <a class="key" href="javascript:void(0)" e="key">7</a>
+                <a class="key" href="javascript:void(0)" e="key">8</a>
+                <a class="key" href="javascript:void(0)" e="key">9</a>
+            </div>
+
+            <div style="width:180px;float:left">
+                <a class="key" href="javascript:void(0)" e="key">0</a>
+                <a class="key" href="javascript:void(0)" e="key_backspace" style="width:70px;background-color:#d76">←</a>
+                <a class="key" href="javascript:void(0)" e="key_search" style="width:170px;background-color:#0c8;height:170px;line-height:170px;">搜索</a>
+            </div>
+        </div>
+</div>
+<script src="list_4vod.js"></script>
+<script>
+//$("#main_div").css("background-image","url(img/main.jpg)");
+// $("#main_div").css("background","img/main.jpg");
+
+
+page_load();
+
+alert("ttt");
+</script>
+
+</body>
+</html>
