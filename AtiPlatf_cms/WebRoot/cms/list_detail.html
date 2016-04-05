@@ -107,12 +107,13 @@ window.alert=Toast;
 
 </div>
 <div style=" width:1280px; height:720px;" id="main_div">
-<div id="list_div">
+<div id="list_div" style="height:260px; overflow:hidden; " >
+
 <div id="cate_img_div" style="display:inline-block;  float:left"><img src="cate.jpg" /></div>
  <ul id="table1_tmpl" style="text-align:left;">
   <li class="   datarow "  style=" list-style-type:none;" onkeypress="key_press_hadler()"  bigpic="${bigpic}"  thumb="${thumb}" desc="${desc}" title="${data_id}">${data_id}</li>
   </ul>
-     <ul class="list" id="table1" style="padding:0px; display:inline-block;   margin:0px; padding:0px;">
+     <ul class="list" id="table1" style="padding:0px; display:inline-block;   margin:0px; padding:0px; position:absolute" >
          
      </ul>
 </div>
