@@ -1,7 +1,10 @@
-// JavaScript Document
+// JavaScript Document ..
 function cate_item_key_down_handler(obj)
 {
-	alert("cate_item_key_down_handler"+obj);
+	//alert("cate_item_key_down_handler"+obj);
+	cancel_all_select();
+	set_first_selected();
+
 	
 }
 
@@ -105,16 +108,23 @@ var objEvtMap={};
 
 /**
 */
+function cate_key_enter_handler(obj)
+{
+	var v=$(obj).text();
 
+	Cate_click(v);
+
+
+}
 function bindEvent()
 {
 	var arr=$("#table2 li");
 	arr.each(function(index, element) {
-		$(element).keypress(function(){
+		/*$(element).keypress(function(){
 					  alert('keypress');
-			   });
-			    var id="cate_aid_"+index;
-	 $(element).attr("id",id);  
+			   });*/
+		  var id="cate_aid_"+index;
+		 $(element).attr("id",id);  
 		objEvtMap[ id ]=function(evt,element)
 		{
 			if(evt=="down")
@@ -129,6 +139,7 @@ function bindEvent()
 			
 		};
 
+		objEvtMap[ id+"--enter"]=  cate_key_enter_handler;
 			objEvtMap[ "cate_aid_0--enter" ]=function(element)
 			{
 
@@ -305,6 +316,9 @@ document.onkeydown=function(event){
 		 var id=$(now).attr("id");
 				var func=	objEvtMap[id+"--enter" ];
 
+				if(func==undefined)
+					console.log(" func is null ,id:"+id);
+
 				if(id.indexOf("key_aid")==0)
 		func=func.bind(searchboxQ3);
 				func(now);
@@ -345,6 +359,7 @@ function get_posts_callback(data)
 	
 	try{
 //	alert(data);
+$('#table1').html("");
 	var li=str2json(data);
 	　$("#table1_tmpl").tmpl(li).appendTo('#table1');
  	$("#table1_tmpl").hide();
@@ -355,21 +370,41 @@ bindEvent_4_dataBlock();
 		showErr(e);	
 	}
 }
-function page_load()
+
+function Cate_click(cate)
 {
-	 	var meth="com.attilax.dataService.DataService.exe";
+
+	var meth="com.attilax.dataService.DataService.exe";
 					meth=encodeURIComponent(meth);
 					//sql="+get_posts_sql
-					var tableStroePath=encodeURIComponent("Z:\动作类");
+					var tableStroePath=encodeURIComponent('Z:\\'+cate);
 					
 					
 					//storeEngiee    folderAsRow   ,,lineAsRow  (csv),( lineAsCol   fileAsRow  )prop file..
 		var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow";
 				console.log(mp);
 			//	alert("get post mp:"+mp);
-			//	HRE.exe(mp,get_posts_callback);	
-		var d=	 JSON.stringify(test_data);
-			get_posts_callback(d);
+			 	HRE.exe(mp,get_posts_callback);	
+
+
+}
+function page_load()
+{
+	 	var meth="com.attilax.dataService.DataService.exe";
+					meth=encodeURIComponent(meth);
+					//sql="+get_posts_sql
+					var tableStroePath=encodeURIComponent("Z:\\动作类");
+					
+					
+					//storeEngiee    folderAsRow   ,,lineAsRow  (csv),( lineAsCol   fileAsRow  )prop file..
+		var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow";
+				console.log(mp);
+			//	alert("get post mp:"+mp);
+			 	HRE.exe(mp,get_posts_callback);	
+
+			//for test
+	//	var d=	 JSON.stringify(test_data);
+		//	get_posts_callback(d);
 		//	searchboxQ3.hide();
 }
 
