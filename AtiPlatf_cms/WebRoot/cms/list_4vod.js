@@ -202,6 +202,16 @@ function key_press_hadler(obj)
 	 window.setTimeout(function(){set_page_info(next)},10);
 	//  ;
 
+  //q44  position().top 是相对父元素的 for parent element ,, offset().top  base on win
+	  var top=$(next).position().top;
+	  var curBaseTop=  $(".listBlock_main").scrollTop()+240;
+	  if(top>curBaseTop)   //in hide 
+	  {
+
+	  		$(".listBlock_main").scrollTop(curBaseTop);
+	  }
+	 
+	 
 	
 	 next.addClass("selected");	  $(obj).removeClass("selected");
 	
@@ -213,9 +223,22 @@ function key_press_hadler4up(obj)
 	
 	 var next=$(obj).prev();
 	  if(next.length==0){return;};
+
+
+	   //q44  position().top 是相对父元素的 for parent element ,, offset().top  base on win
+	  var top=$(next).position().top;
+	  var curBaseTop=  $(".listBlock_main").scrollTop();
+	  if(top<curBaseTop)   //in hide 
+	  {
+
+	  		$(".listBlock_main").scrollTop(curBaseTop-240);
+	  }
+	 
 	 
 	  $(obj).removeClass("selected");
 	 next.addClass("selected");	
+
+
 	 
 	  window.setTimeout(function(){set_page_info(next)},10);
 }
@@ -346,11 +369,28 @@ var searchboxQ3=new SearchBox();
 function  show_searchbox()
 {
 	cancel_all_select();
-$(".searchbox").show();
-
-if(searchboxQ3==undefined)
-	searchboxQ3=new SearchBox();
-searchboxQ3.bindKeyEvent();
+	$(".searchbox").show();
+	
+	if(searchboxQ3==undefined)
+		searchboxQ3=new SearchBox();
+		
+	searchboxQ3.searchBtnEvt=function(keyword)
+	{
+		
+	       var partDefine="partition_by_hash(cate)";
+		var    tableDefine='{"cate":"$sub","moviename","$rowFolderName"}';
+		tableDefine=encodeURIComponent(tableDefine);
+			var meth="com.attilax.dataService.DataService.exe";
+				var tableStroePath=encodeURIComponent('Z:');
+				var where="roma(moviename) like '%"+keyword+"%'";
+				where=encodeURIComponent(where);
+			var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow&$partDefine="+partDefine+"&$tableDefine="+tableDefine+"&$where="+where+"&kw="+keyword;
+				console.log(mp);
+			//	alert("get post mp:"+mp);
+			 	HRE.exe(mp,get_posts_callback);	
+		
+	};
+	searchboxQ3.bindKeyEvent();
 	
 }
 

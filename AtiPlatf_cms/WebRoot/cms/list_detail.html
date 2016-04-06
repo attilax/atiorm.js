@@ -90,32 +90,51 @@ var import_base="../";
     <script type="text/javascript" src="cfg.js"></script>
 <script type="text/javascript" src="test_data.js"></script><script type="text/javascript" src="searchbox.js"></script>
 <script type="text/javascript" src="../com.attilax/ui/toast.js"></script>
+
+  <link rel="stylesheet" href="../com.atilax.frmwk/font-awesome-4.5.0/css/font-awesome.css">
 <script >
-window.alert=Toast;
+//window.alert=Toast;
+window.alert=function(msg)
+{
+//	
+}
 </script>
 </head>
 
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" tracingsrc="img/main.jpg" tracingopacity="100">
-
-<input name="" type="button"  onclick=" KEYCODE_MENU_handle();" style="width:300px;"/><input name="" type="button"  onclick=" show_searchbox()" style="width:300px;" value="show search box"/>
+<div style="display:nonex">
+<input name="" type="button"  onclick=" KEYCODE_MENU_handle();" style="width:300px;"/>
+<input name="" type="button"  onclick=" show_searchbox()" style="width:300px;" value="show search box"/>
 
 <input name="" type="button"  onclick=" javascript:window.location.reload()" style="width:100px;" value="reload"/>
-<div  id="cate_menu_div" style="position:absolute; top:0px; left:0px; height:300px; ">
+<input name="input" type="button"  onclick=" javascript:KEYCODE_BACK_handle()" style="width:100px;" value="ret evt"/>
+</div>
+
+<div style=" width:1280px; height:720px;" id="main_div">
+<!---->
+<div  id="cate_menu_div" style="position:absolute; top:0px; left:0px; ">
 <ul id="table2_tmpl">
 <li>${cate}</li></ul>
 <ul id="table2"></ul>
 
 </div>
-<div style=" width:1280px; height:720px;" id="main_div">
-<div id="list_div" style="height:260px; overflow:hidden; " >
+<!---->
+
+<div id="list_div" style=" height:319px; " >
 
 <div id="cate_img_div" style="display:inline-block;  float:left"><img src="cate.jpg" /></div>
  <ul id="table1_tmpl" style="text-align:left;">
   <li class="   datarow "  style=" list-style-type:none;" onkeypress="key_press_hadler()"  bigpic="${bigpic}"  thumb="${thumb}" desc="${desc}" title="${data_id}">${data_id}</li>
   </ul>
+  <div class="listBlock">
+  <div class="listBlock_header"><i class="fa fa-chevron-up"></i></div>
+  <div class="listBlock_main" style="height:260px; overflow:hidden;">
      <ul class="list" id="table1" style="padding:0px; display:inline-block;   margin:0px; padding:0px; position:absolute" >
          
      </ul>
+     </div>
+       <div class="listBlock_bottom"><i class="fa fa-chevron-down"></i></div>
+     </div>
 </div>
 
 <img id="thumb_img" /> 
@@ -206,7 +225,9 @@ window.alert=Toast;
 
 page_load();
 
-alert("ttt");
+//alert("ttt");
+$(".searchbox").hide();
+$("#table2_tmpl").hide();
 </script>
 
 </body>

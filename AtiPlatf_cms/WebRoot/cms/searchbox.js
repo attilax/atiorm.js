@@ -2,7 +2,7 @@
 
 function SearchBox()
 {
-	
+	this.searchBtnEvt;
 	
 }
 SearchBox.prototype.show=function()
@@ -186,6 +186,29 @@ arr.each(function(index, element) {
 		 this.key_enter_event($(element));
 		 
 	 }
+	 //bind search btn evt
+	 if("key_search"== $(element).attr("e"))
+	 {
+		   objEvtMap[ id+"--enter" ]=function(element)
+		 {
+			 this.searchBtnEvt($('.searchbox .textbox').text());
+			 
+		 }
+		 
+	 }
+	  //bind search btn evt
+	 if("key_backspace"== $(element).attr("e"))
+	 {
+		   objEvtMap[ id+"--enter" ]=function(element)
+		 {
+			// this.searchBtnEvt($('.searchbox .textbox').text());
+			  var value = $('.searchbox .textbox').text();
+       		 $('.searchbox .textbox').html(value.substr(0, value.length-1));
+			 
+		 }
+		 
+	 }
+	 
 	objEvtMap[ id ]=function(evt,element)
 	{
 		if(evt=="down")
