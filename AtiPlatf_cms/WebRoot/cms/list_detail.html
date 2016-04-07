@@ -102,7 +102,7 @@ window.alert=function(msg)
 </head>
 
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" tracingsrc="img/main.jpg" tracingopacity="100">
-<div style="display:nonex">
+<div style="display:none" class="dbg_div">
 <input name="" type="button"  onclick=" KEYCODE_MENU_handle();" style="width:300px;"/>
 <input name="" type="button"  onclick=" show_searchbox()" style="width:300px;" value="show search box"/>
 
@@ -114,7 +114,7 @@ window.alert=function(msg)
 <!---->
 <div  id="cate_menu_div" style="position:absolute; top:0px; left:0px; ">
 <ul id="table2_tmpl">
-<li>${cate}</li></ul>
+<li cate_kw="${cate_kw}" cate_id="${cate_id}">${cate}</li></ul>
 <ul id="table2"></ul>
 
 </div>
@@ -124,7 +124,7 @@ window.alert=function(msg)
 
 <div id="cate_img_div" style="display:inline-block;  float:left"><img src="cate.jpg" /></div>
  <ul id="table1_tmpl" style="text-align:left;">
-  <li class="   datarow "  style=" list-style-type:none;" onkeypress="key_press_hadler()"  bigpic="${bigpic}"  thumb="${thumb}" desc="${desc}" title="${data_id}">${data_id}</li>
+  <li class="   datarow "  style=" list-style-type:none;" onkeypress="key_press_hadler()" url="http://192.168.2.114/${playURL}"  bigpic="${bigpic}"  thumb="${thumb}" desc="${desc}" title="${data_id}">${data_id}</li>
   </ul>
   <div class="listBlock">
   <div class="listBlock_header"><i class="fa fa-chevron-up"></i></div>
@@ -142,10 +142,10 @@ window.alert=function(msg)
 <div id="info_div">
 
 <div id="title_div_wrap">
-
+<!--   -->
 <table border="0">
   <tr>
-    <td width="100"><span class="am-icon-play-circle-o am-icon-lg" style="font-size:40px;"></span></td>
+    <td width="100"><span class="am-icon-play-circle-o am-icon-lg title_playIcon " style="font-size:40px;" id="title_playIcon" ></span></td>
     <td><div id="title_div"></div>
     评分：<span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span> <span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span>
     </td>
@@ -228,7 +228,15 @@ page_load();
 //alert("ttt");
 $(".searchbox").hide();
 $("#table2_tmpl").hide();
-</script>
+$("#cate_menu_div").hide();//cate div
 
+</script>
+<script defer="defer">
+window.onload=function()
+{
+if(UrlParm.parm('dbg')==1)
+	$(".dbg_div" ).show();	
+}
+</script>
 </body>
 </html>

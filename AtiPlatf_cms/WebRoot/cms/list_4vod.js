@@ -1,50 +1,9 @@
 // JavaScript Document ..
-function cate_item_key_down_handler(obj)
-{
-	//alert("cate_item_key_down_handler"+obj);
-	cancel_all_select();
-	set_first_selected();
 
-	
-}
+importx("com.attilax/web/req.js");
+importx("com.attilax/ui/focus.js");
+importx("./cate.js");
 
-// JavaScript Document
-function cate_item_key_up_handler(obj)
-{
-	alert("cate_item_key_up_handler"+obj);
-	
-}
-//for cate
-function key_press_hadler_left(obj)
-{
-   //  alert(obj);
-	
-	 var next=$(obj).prev();
-	 if(next.length==0){return;};
-	 
-//	 window.setTimeout(function(){set_page_info(next)},10);
-	//  ;
-
-	
-	 next.addClass("selected");	
-	   $(obj).removeClass("selected");
-	
-}
-
-function key_press_hadler_rit(obj)
-{
-   //  alert(obj);
-	
-	 var next=$(obj).next();
-	 if(next.length==0){return;};
-	 
-//	 window.setTimeout(function(){set_page_info(next)},10);
-	//  ;
-
-	
-	 next.addClass("selected");	  $(obj).removeClass("selected");
-	
-}
 function cancel_all_select()
 {
 var nows=$(".selected");
@@ -64,6 +23,8 @@ function set_first_selected_in_cate()
 	$(it).attr("tabindex","-1");
 
 	$("#table2").show();//cate div
+	$("#cate_menu_div").show();//cate div
+	
 	$(".searchbox").hide();
 	
 }
@@ -73,49 +34,55 @@ function KEYCODE_BACK_handle()
 
 	$("#table2").hide();
 	$(".searchbox").hide();
+	$("#cate_menu_div").hide();//cate div
 	set_first_selected();
 
 }
 
 function KEYCODE_MENU_handle()
 {
-	$("#table2").html("");
+//	$("#table2").html("");
 		alert(" ---menu handle start");	
-		var cates="0: 搜索 ,1:爱情类,2:动画类,3:动作类,4:港台国产,5:剧情类,6:科幻类,7:恐怖类,8:悬疑类,9:战争类,10:喜剧类";
+		var cates="0: 搜索 ,love:爱情类,anim:动画类,act:动作类,cn:港台国产,jyv:剧情类,sci:科幻类,konb:恐怖类,iven:悬疑类,war:战争类,like:喜剧类";
+		var cates_search_kewword="0: 搜索 ,love:爱情,anim:动画,act:动作,cn:港台,jyv:剧情,sci:科幻,konb:恐怖,iven:悬疑,war:战争,like:喜剧";
+	var map=yaml2jsonV2(cates_search_kewword);
+
 		var a=cates.split(",");
 		var r=[];
 		 	for(var i=0;i<a.length;i++)
 		 	{
 		 	var o={};
 		 	o.cate=a[i].split(":")[1];
+		 	o.cate_id=a[i].split(":")[0];
+		 	o.cate_kw=map[o.cate_id];
 		 	r.push(o);
 		//		
 		 }
+		 if($("#table2").text().indexOf("搜索")>=0)  //already loaded ok
+		{ 
+
+			var cate_ctrl=new CateDiv("cate_menu_div");
+			cate_ctrl.show();
+		return;
+		}
+		
 		　$("#table2_tmpl").tmpl(r).appendTo('#table2');
 		bindEvent();
-			set_first_selected_in_cate();
-				$("#table2").show();
+		   var now_cate_slted=getNowSelectedControl_from_cateblock();
+		   if(!now_cate_slted)
+				set_first_selected_in_cate();
+		$("#table2").show();
 }
 
-function hide_catebox()
-{
-$("#table2").hide();
 
-}
 
 
 var objEvtMap={};
 
 /**
 */
-function cate_key_enter_handler(obj)
-{
-	var v=$(obj).text();
 
-	Cate_click(v);
-
-
-}
+//for cate 
 function bindEvent()
 {
 	var arr=$("#table2 li");
@@ -154,7 +121,83 @@ function bindEvent()
 	
 	
 }
+function setFocus(obj)
+{
 
+	$(obj).addClass('selected');
+}
+function cancelFocus(obj)
+{
+	$(obj).removeClass('selected');
+ 
+
+}
+function setSelect(obj)
+{
+$(obj).addClass('sltOnly');
+
+}
+function cancelSelect(obj)
+{
+$(obj).removeClass('sltOnly');
+	
+}
+function setFocusNSelect(obj)
+{
+	setFocus(obj);
+	setSelect(obj);
+
+}
+function cancelFocusNSelect(obj)
+{
+cancelFocus(obj); cancelSelect(obj);
+}
+function bindEvt_4_playIcon()
+{
+
+	objEvtMap[ "title_playIcon--enter" ]=function(element)
+	{
+		//	cancelFocus($(".title_playIcon"));
+		var now=	getNowSelectedControl_from_datablock();
+		var url=$(now).attr("url");		
+		browExt.play(url);
+	//	setFocus(now);
+
+	};
+
+
+	objEvtMap[ "title_playIcon--up" ]=function(element)
+	{
+			cancelFocus($(".title_playIcon"));
+		var now=	getNowSelectedControl_from_datablock();
+		setFocus(now);
+
+	};
+		objEvtMap[ "title_playIcon--down" ]=function(element)
+	{
+		 	cancelFocus($(".title_playIcon"));
+		 	var now=	getNowSelectedControl_from_datablock();
+		setFocus(now);
+
+	};
+
+	objEvtMap[ "title_playIcon--left" ]=function(element)
+	{
+			cancelFocus($(".title_playIcon"));
+		var now=	getNowSelectedControl_from_datablock();
+		setFocus(now);
+
+	};
+		objEvtMap[ "title_playIcon--rit" ]=function(element)
+	{
+		 	cancelFocus($(".title_playIcon"));
+		 	var now=	getNowSelectedControl_from_datablock();
+		setFocus(now);
+
+	};
+	
+
+}
 function bindEvent_4_dataBlock()
 {
 var arr=$("#table1 li");
@@ -171,15 +214,35 @@ arr.each(function(index, element) {
 		if(evt=="up")
 			key_press_hadler4up($(element));
 		 	if(evt=="left")
- 	{};
+ 			{};
 		if(evt=="rit")
 			{}
 		
 		
 	};
+
+	objEvtMap[ id+"--enter" ]=function(element)
+	{
+		 	var now=	getNowSelectedControl_from_datablock();
+		var url=$(now).attr("url");		
+		browExt.play(url);
+	};
+	objEvtMap[ id+"--left" ]=function(element)
+	{
+		   cancelFocus(element);
+			setFocus($(".title_playIcon"));
+	};
+	objEvtMap[ id+"--rit" ]=function(element)
+	{
+		   var now=getNowFocusControl();
+		   cancelFocus(now);
+			setFocus($(".title_playIcon"));
+	};
 	
 	
-	});	
+	});	//end foreach
+
+
 	
 	
 }
@@ -191,7 +254,7 @@ function set_page_info(next)
 	$("#title_div").html(	 next.attr("title"));	
 	$("#desc_div").html(	 next.attr("desc"));
 }
-
+//for data item down evt
 function key_press_hadler(obj)
 {
    //  alert(obj);
@@ -213,7 +276,8 @@ function key_press_hadler(obj)
 	 
 	 
 	
-	 next.addClass("selected");	  $(obj).removeClass("selected");
+	 setFocusNSelect(next);//  next
+	 cancelFocusNSelect(obj);//	   $(obj).removeClass("selected");
 	
 }
 
@@ -235,21 +299,27 @@ function key_press_hadler4up(obj)
 	  }
 	 
 	 
-	  $(obj).removeClass("selected");
-	 next.addClass("selected");	
+	//  $(obj).removeClass("selected");
+	// next.addClass("selected");	
+	 setFocusNSelect(next);//  next
+	 cancelFocusNSelect(obj);//	 
 
 
 	 
 	  window.setTimeout(function(){set_page_info(next)},10);
 }
+//for data block
 function set_first_selected()
 {
 	 
 	var li=$("#table1 li");
 	var it=li[0];
+	/*
 	$(it).addClass("selected");	
 	$(it).focus();
 	$(it).attr("tabindex","-1");
+	*/
+	setFocusNSelect($(it));
 	
 }
 importx("com.attilax/core/yaml.js");
@@ -267,6 +337,11 @@ function keydownHandler_common(keycode)
 	if(id==undefined)
 		throw ("getNowFocusControl get id is null ");;
 	var func=	objEvtMap[id ];
+	var funcx=objEvtMap[id +"--"+keycodeName]; //q46
+	if(funcx)
+	{
+		funcx(now);return;
+	}
 
 	if(id.indexOf("key_aid")==0)
 		func=func.bind(searchboxQ3);
@@ -326,6 +401,19 @@ document.onkeydown=function(event){
 			 var id=$(now).attr("id");
 				var func=	objEvtMap[id ];
 
+
+					var s="13:down,37:left,38:up,39:rit,40:down";
+	var map=yaml2jsonV2(s);
+	var keycodeName=map[e.keyCode];
+	var funcx=objEvtMap[id +"--"+keycodeName]; //q46
+	if(funcx)
+	{
+		funcx(now);return false;
+	}
+		
+
+
+
 					if(id.indexOf("key_aid")==0)
 		func=func.bind(searchboxQ3);
 	func("rit",now);
@@ -365,6 +453,33 @@ function getNowFocusControl()
 
 		return now;
 }
+function getDatablockFirstShowItem()
+{
+	 var curBaseTop=  $(".listBlock_main").scrollTop();
+	 var now;
+	 $("#table1 li" ).each(function(index, el) {
+	 	   
+	 	     var top=$(el).position().top;
+	 	     if( top >curBaseTop )
+	 	   		return false //break;
+
+	 });
+	 return now;
+}
+
+
+function getNowSelectedControl_from_datablock()
+{
+	
+		var now=$(".listBlock_main .sltOnly").get(0);
+	    if(!now)
+	    {
+	    	now=getDatablockFirstShowItem();
+	    	//$(".listBlock_main li").get(0);
+	    }
+		return now;
+}
+
 var searchboxQ3=new SearchBox();
 function  show_searchbox()
 {
@@ -383,8 +498,16 @@ function  show_searchbox()
 			var meth="com.attilax.dataService.DataService.exe";
 				var tableStroePath=encodeURIComponent('Z:');
 				var where="roma(moviename) like '%"+keyword+"%'";
+
+				//sqlite
+				tableStroePath="hitv";
+					var maincfg= encodeURIComponent( "aaaCfg.IocX4sqlite");
+				where=" shortName like '%"+keyword+"%' limit 200";
 				where=encodeURIComponent(where);
-			var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow&$partDefine="+partDefine+"&$tableDefine="+tableDefine+"&$where="+where+"&kw="+keyword;
+
+					var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$partDefine="+partDefine+"&$tableDefine="+tableDefine+"&$where="+where+"&kw="+keyword+"&$maincfg="+maincfg+"&$trigger=aaaCfg.DataMapper4vod&$triggerPos=after&$triggerTarget=rows";
+		
+	//		var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow&$partDefine="+partDefine+"&$tableDefine="+tableDefine+"&$where="+where+"&kw="+keyword;
 				console.log(mp);
 			//	alert("get post mp:"+mp);
 			 	HRE.exe(mp,get_posts_callback);	
@@ -405,6 +528,7 @@ $('#table1').html("");
  	$("#table1_tmpl").hide();
 set_first_selected();
 bindEvent_4_dataBlock();
+bindEvt_4_playIcon();
 	}catch(e)
 	{
 		showErr(e);	
@@ -421,7 +545,12 @@ function Cate_click(cate)
 					
 					
 					//storeEngiee    folderAsRow   ,,lineAsRow  (csv),( lineAsCol   fileAsRow  )prop file..
-		var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow";
+				//		var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select"; //&$storeEngiee=folderAsRow";
+
+				//sqlite
+				var where=" genre like '%$cate$%' limit 200 ";where=where.replace("$cate$",cate);where=encodeURIComponent(where);
+				var maincfg= encodeURIComponent( "aaaCfg.IocX4sqlite");
+		var mp="$method="+meth+"&$callback=get_posts_callback&$table="+"hitv"+"&rdm="+Math.random()+"&$op=select&$where="+where+"&$maincfg="+maincfg+"&$trigger=aaaCfg.DataMapper4vod&$triggerPos=after&$triggerTarget=rows";
 				console.log(mp);
 			//	alert("get post mp:"+mp);
 			 	HRE.exe(mp,get_posts_callback);	
@@ -437,10 +566,9 @@ function page_load()
 					
 					
 					//storeEngiee    folderAsRow   ,,lineAsRow  (csv),( lineAsCol   fileAsRow  )prop file..
-		var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow";
-				console.log(mp);
-			//	alert("get post mp:"+mp);
-			 	HRE.exe(mp,get_posts_callback);	
+	//	var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow";
+
+		 Cate_click("动作");
 
 			//for test
 	//	var d=	 JSON.stringify(test_data);

@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+
+     <link rel="stylesheet" href='bootstrap.min.css'/>  
+      <link rel="stylesheet" href='jquery.jOrgChart.css'/>  
+ <link rel="stylesheet" type="text/css" href="../com.atilax.frmwk/jOrgChart-master/bootstrap.min.css">
+ <link rel="stylesheet" type="text/css" href="../com.atilax.frmwk/jOrgChart-master/jquery.jOrgChart.css">
+ <style type="text/css">
+ 
+ .node {
+	color: white;
+	height: 50px !important;
+	background-color:#4D20D0 !important;
+	font-size:14px !important;
+	line-height:18px;
+	padding:3px;
+	border-radius:10px;
+}
+ </style>
+<script src="../com.atilax.frmwk/jquery-1.11.3.js"></script>
+<script src="../com.atilax.frmwk/jOrgChart-master/jquery.jOrgChart.js"></script>
+
+</head>
+<body>
+
+<ul id="orgdata" style="display:none">
+    <li>
+       dataservice
+       <ul>
+         <li id="beer">db_dataservice
+         
+           <ul>
+             <li>dsl2sql service
+             <ul><li>meta service</li></ul>
+             
+             </li> <li>sql service</li>
+             </ul>
+         </li>
+         <li>file_dataservice
+          
+           
+         </li>
+         <li class="fruit">mem_ dataservcie           
+         </li>
+         
+          
+       </ul>
+     </li>
+   </ul>            
+<div id="show_div" class="orgChart"></div>
+    
+<div  class="node" id="nodxxx"></div>
+   
+<script>
+    jQuery(document).ready(function() {
+        $("#orgdata").jOrgChart({
+            chartElement : '#show_div',
+            dragAndDrop  : true
+        });
+    });
+    </script>
+
+</body>
+</html>
