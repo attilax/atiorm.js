@@ -2,7 +2,17 @@
 
 importx("com.attilax/web/req.js");
 importx("com.attilax/ui/focus.js");
+importx("com.attilax/ui/ul.js");
 importx("./cate.js");
+//importx("com.attilax/ui/searchbox_android.css");
+ importx("com.attilax/effect/rotato/css.css");
+  importx("com.attilax/effect/rotato/js.js");
+ importx("com.attilax/effect/cloudFloat/cloud.css");
+  importx("com.attilax/effect/cloudFloat/cloud.js");
+      importx("com.attilax/jsbridge/jsb_v8q414.js");
+    //   importx("com.attilax/ui/ul.css");
+var Ulist2;
+var cateBlock; //CateObj
 
 function cancel_all_select()
 {
@@ -13,21 +23,6 @@ nows.each(function(index, element) {
 
 	
 }
-function set_first_selected_in_cate()
-{
-	cancel_all_select();
-	var li=$("#table2 li");
-	var it=li[0];
-	$(it).addClass("selected");	
-	$(it).focus();
-	$(it).attr("tabindex","-1");
-
-	$("#table2").show();//cate div
-	$("#cate_menu_div").show();//cate div
-	
-	$(".searchbox").hide();
-	
-}
 
 function KEYCODE_BACK_handle()
 {
@@ -35,7 +30,16 @@ function KEYCODE_BACK_handle()
 	$("#table2").hide();
 	$(".searchbox").hide();
 	$("#cate_menu_div").hide();//cate div
-	set_first_selected();
+//	set_first_selected();
+
+	var	Ulist_q412=new Ulist("table1"); 
+	var now=Ulist_q412.getNowSelectedControl();
+
+	Ulist_q412.scrollTop(0);
+	Ulist_q412.set_first_selected();
+	//if（
+//	setFocusNSelect(now);
+
 
 }
 
@@ -49,6 +53,11 @@ function KEYCODE_MENU_handle()
 
 		var a=cates.split(",");
 		var r=[];
+
+		 //for dbg
+		 var o={cate_id:"",cate:"menux"}; 	r.push(o);
+
+
 		 	for(var i=0;i<a.length;i++)
 		 	{
 		 	var o={};
@@ -58,20 +67,45 @@ function KEYCODE_MENU_handle()
 		 	r.push(o);
 		//		
 		 }
-		 if($("#table2").text().indexOf("搜索")>=0)  //already loaded ok
-		{ 
+
+		
+		 
+		 if($("#table2").text().indexOf("搜索")>=0)  //already loaded ok   mustbe for menuitem stay..beir ini le ..ma le
+		 			{ 
+		 				//maybe can use by js var ..then refocus..
 
 			var cate_ctrl=new CateDiv("cate_menu_div");
 			cate_ctrl.show();
-		return;
+	
+		}else
+		{
+			  	var cate_ctrl=new CateDiv("cate_menu_div");
+	  	cate_ctrl.bindData(r);
+	  			bindEvent();
+	  				  	cate_ctrl.show();
 		}
+		 
+	
+	
+
 		
-		　$("#table2_tmpl").tmpl(r).appendTo('#table2');
-		bindEvent();
+		
+
+
+		
+		//set cate focus
 		   var now_cate_slted=getNowSelectedControl_from_cateblock();
-		   if(!now_cate_slted)
-				set_first_selected_in_cate();
-		$("#table2").show();
+		   if(now_cate_slted)
+		  	 setFocusNSelect( now_cate_slted);
+		  else
+		   {
+		 
+		   	var first=cate_ctrl.set_first_focus();
+			//	set_first_selected_in_cate();
+		   }
+		
+		var	Ulist_q412a=new Ulist("table1"); 
+		Ulist_q412a.cancelFocus();
 }
 
 
@@ -79,79 +113,7 @@ function KEYCODE_MENU_handle()
 
 var objEvtMap={};
 
-/**
-*/
-
-//for cate 
-function bindEvent()
-{
-	var arr=$("#table2 li");
-	arr.each(function(index, element) {
-		/*$(element).keypress(function(){
-					  alert('keypress');
-			   });*/
-		  var id="cate_aid_"+index;
-		 $(element).attr("id",id);  
-		objEvtMap[ id ]=function(evt,element)
-		{
-			if(evt=="down")
-				cate_item_key_down_handler($(element));
-			if(evt=="up")
-				cate_item_key_up_handler($(element));
-				if(evt=="left")
-				key_press_hadler_left($(element));
-			if(evt=="rit")
-				key_press_hadler_rit($(element));
-			
-			
-		};
-
-		objEvtMap[ id+"--enter"]=  cate_key_enter_handler;
-			objEvtMap[ "cate_aid_0--enter" ]=function(element)
-			{
-
-				
-				hide_catebox();
-				show_searchbox();
-
-			};
-		///
-		
-		});	
-	
-	
-}
-function setFocus(obj)
-{
-
-	$(obj).addClass('selected');
-}
-function cancelFocus(obj)
-{
-	$(obj).removeClass('selected');
  
-
-}
-function setSelect(obj)
-{
-$(obj).addClass('sltOnly');
-
-}
-function cancelSelect(obj)
-{
-$(obj).removeClass('sltOnly');
-	
-}
-function setFocusNSelect(obj)
-{
-	setFocus(obj);
-	setSelect(obj);
-
-}
-function cancelFocusNSelect(obj)
-{
-cancelFocus(obj); cancelSelect(obj);
-}
 function bindEvt_4_playIcon()
 {
 
@@ -202,9 +164,9 @@ function bindEvent_4_dataBlock()
 {
 var arr=$("#table1 li");
 arr.each(function(index, element) {
-    $(element).keypress(function(){
-      			  alert('keypress');
-           });
+   // $(element).keypress(function(){
+     // 			  alert('keypress');
+    //       });
 		   var id="data_aid_"+index;
 	 $(element).attr("id","data_aid_"+index);
 	objEvtMap[ id ]=function(evt,element)
@@ -229,14 +191,14 @@ arr.each(function(index, element) {
 	};
 	objEvtMap[ id+"--left" ]=function(element)
 	{
-		   cancelFocus(element);
-			setFocus($(".title_playIcon"));
+		  // cancelFocus(element);
+		//	setFocus($(".title_playIcon"));
 	};
 	objEvtMap[ id+"--rit" ]=function(element)
 	{
-		   var now=getNowFocusControl();
-		   cancelFocus(now);
-			setFocus($(".title_playIcon"));
+		 //  var now=getNowFocusControl();
+		//   cancelFocus(now);
+		//	setFocus($(".title_playIcon"));
 	};
 	
 	
@@ -246,82 +208,89 @@ arr.each(function(index, element) {
 	
 	
 }
+
+function setPicSrc(url,callback)
+{
+
+	if (window.navigator.platform=="Linux armv71" || window.navigator.platform.indexOf("Linux")>=0)  //android envi
+	{
+
+	//	dePrefix  del maindir
+		 url=dePrefix(url);
+         alert( " set ic src:"+url);
+	// var rzt=	jsBridge.invoke2("com.attilax.img.imgx4android.toDataUriBase64","$sd$/0localimg/"+url);
+	var rzt=	jsBridge.invoke2("com.attilax.img.imgx4android.toReplaceSdVar","$sd$/0localimg/"+url);
+	
+		 alert(" set pic ret:"+rzt.substr(0,200));
+
+		callback(rzt);
+	console.log("imgx4android.toDataUriBase64 rzt:"+rzt);
+
+		return;
+	}
+
+//windows
+	 try{
+					var ds=new AtiJsBridge();
+						//ds.formid="formx";
+					//	alert();
+					//	var s="update  `wxb_order` set stat='取消' where user_id=$uid$ and oid="+order_id;
+				 var localSavePath="f:\\0localimg";
+				 url=dePrefix(url);
+				 url=localSavePath+"\\"+url;
+
+				        url=encodeURIComponent(url);
+						ds.exe("$method=com.attilax.img.imgx.toDataUriBase64&param1="+url+"&$tbtype=sq&$trigger000=com.attilax.dataService.meta_data_pars_from_txt_trigger&$trigtime=after&order_id=$uuid"+"&user_id=$uid&$member_id=$uid",function(data){
+							console.log("--r:"+data);
+					///	 $("#thumb_img").attr("src",	data);
+							callback(data);
+							
+						}
+						
+						
+						); 
+	}catch(e)
+	{
+
+		showErr(e);
+			console.log(e);
+	}
+
+}
+
+
 function set_page_info(next)
 {
-		//alert("bigpic:"+next.attr("bigpic"));
-	$("#main_div").css("background-image", "url("+next.attr("bigpic")+")" );
+		//alert("bigpic:"+next.attr("bigpic"));  encodeURIComponent
+	$("#thumb_img").attr("src",	 "");
+   var bigpic=(next.attr("bigpic"));
+
+
+
+		setPicSrc(bigpic,function(data){
+
+			 	url="data:image/jpeg;base64,"+data;
+				url="file://"+data;
+				url="http://127.0.0.1:7788/?$m=com.attilax.readpic&file="+encodeURIComponent(data);
+				alert(" set pic:"+url);
+				var cssurl= "url('"+url+"')";
+				document.getElementById('main_div').style.backgroundImage=cssurl;
+			//	$("#main_div").css("background-image", cssurl );
+		}) ;
+
+
+
+//var cssurl= "url('"+bigpic+"')";
+		
+//
+
+
+//	$("#main_div").css("background-image", cssurl );
 	$("#thumb_img").attr("src",	 next.attr("thumb"));
 	$("#title_div").html(	 next.attr("title"));	
 	$("#desc_div").html(	 next.attr("desc"));
 }
-//for data item down evt
-function key_press_hadler(obj)
-{
-   //  alert(obj);
-	
-	 var next=$(obj).next();
-	 if(next.length==0){return;};
-	 
-	 window.setTimeout(function(){set_page_info(next)},10);
-	//  ;
 
-  //q44  position().top 是相对父元素的 for parent element ,, offset().top  base on win
-	  var top=$(next).position().top;
-	  var curBaseTop=  $(".listBlock_main").scrollTop()+240;
-	  if(top>curBaseTop)   //in hide 
-	  {
-
-	  		$(".listBlock_main").scrollTop(curBaseTop);
-	  }
-	 
-	 
-	
-	 setFocusNSelect(next);//  next
-	 cancelFocusNSelect(obj);//	   $(obj).removeClass("selected");
-	
-}
-
-function key_press_hadler4up(obj)
-{
-   //  alert(obj);
-	
-	 var next=$(obj).prev();
-	  if(next.length==0){return;};
-
-
-	   //q44  position().top 是相对父元素的 for parent element ,, offset().top  base on win
-	  var top=$(next).position().top;
-	  var curBaseTop=  $(".listBlock_main").scrollTop();
-	  if(top<curBaseTop)   //in hide 
-	  {
-
-	  		$(".listBlock_main").scrollTop(curBaseTop-240);
-	  }
-	 
-	 
-	//  $(obj).removeClass("selected");
-	// next.addClass("selected");	
-	 setFocusNSelect(next);//  next
-	 cancelFocusNSelect(obj);//	 
-
-
-	 
-	  window.setTimeout(function(){set_page_info(next)},10);
-}
-//for data block
-function set_first_selected()
-{
-	 
-	var li=$("#table1 li");
-	var it=li[0];
-	/*
-	$(it).addClass("selected");	
-	$(it).focus();
-	$(it).attr("tabindex","-1");
-	*/
-	setFocusNSelect($(it));
-	
-}
 importx("com.attilax/core/yaml.js");
 //\com.attilax\core\yaml.js
 function keydownHandler_common(keycode)
@@ -352,7 +321,7 @@ function keydownHandler_common(keycode)
 document.onkeydown=function(event){
 	var e = event || window.event || arguments.callee.caller.arguments[0];
 	
-	alert("keycode:"+e.keyCode);
+	//alert("keycode:"+e.keyCode);
 	
 	if(e && e.keyCode==40 ){//下
 		//	alert('40=下键，39=右键');
@@ -413,8 +382,8 @@ document.onkeydown=function(event){
 		
 
 
-
-					if(id.indexOf("key_aid")==0)
+	//var func;
+	if(id.indexOf("key_aid")==0)
 		func=func.bind(searchboxQ3);
 	func("rit",now);
 		//	key_press_hadler_rit(now);
@@ -453,34 +422,13 @@ function getNowFocusControl()
 
 		return now;
 }
-function getDatablockFirstShowItem()
-{
-	 var curBaseTop=  $(".listBlock_main").scrollTop();
-	 var now;
-	 $("#table1 li" ).each(function(index, el) {
-	 	   
-	 	     var top=$(el).position().top;
-	 	     if( top >curBaseTop )
-	 	   		return false //break;
 
-	 });
-	 return now;
-}
-
-
-function getNowSelectedControl_from_datablock()
-{
-	
-		var now=$(".listBlock_main .sltOnly").get(0);
-	    if(!now)
-	    {
-	    	now=getDatablockFirstShowItem();
-	    	//$(".listBlock_main li").get(0);
-	    }
-		return now;
-}
+console.log( window.location.host );
 
 var searchboxQ3=new SearchBox();
+
+
+
 function  show_searchbox()
 {
 	cancel_all_select();
@@ -514,7 +462,96 @@ function  show_searchbox()
 		
 	};
 	searchboxQ3.bindKeyEvent();
+	//if( !searchboxQ3.cacheFinish)  //cached  
+ 	//	searchboxQ3.buildIndex();
+   searchboxQ3.focus();
 	
+}
+
+function dePrefix(img_url)
+{
+
+   var index_splash=img_url.indexOf("maindir");
+            img_url=img_url.substr(index_splash+"maindir".length+1);
+            return img_url;
+
+}
+
+function pre_save(img_url)
+{
+
+//	return;
+alert("--pre save:"+img_url);
+//return;  //for test
+ try{
+
+	if (window.navigator.platform=="Linux armv71" || window.navigator.platform=="Linux i686"    || window.navigator.platform.indexOf("Linux")>=0)  //android envi
+		{
+			 
+					var host=window.location.origin;
+					host=host+"/cms"
+		var rzt=	jsBridge.invoke4("com.attilax.img.imgx4android.save2localHighPerf",host+"/"+img_url,"$sd$/0localimg","/cms/maindir");
+			alert(" pre save rzt:"+rzt.substr(0,150));
+			 return;
+		
+		}
+
+//windows
+	
+	var ds=new AtiJsBridge();
+		//ds.formid="formx";
+	//	alert();
+	//	var s="update  `wxb_order` set stat='取消' where user_id=$uid$ and oid="+order_id;
+        url=encodeURIComponent(img_url);
+
+        var localSavePath="f:\\0localimg";
+            localSavePath=encodeURIComponent(localSavePath);
+            var index_splash=img_url.indexOf("maindir");
+            img_url=img_url.substr(index_splash+"maindir".length+1);
+            img_url="z:\\"+img_url;
+            img_url=encodeURIComponent(img_url);
+
+			ds.exe("$method=com.attilax.img.imgx.save2local&param1="+img_url+"&param2="+localSavePath+"&$tbtype=sq&$trigger000=com.attilax.dataService.meta_data_pars_from_txt_trigger&$trigtime=after&order_id=$uuid"+"&user_id=$uid&$member_id=$uid",function(data){
+				console.log("--r:"+data);
+		///	 $("#thumb_img").attr("src",	data);
+			//	callback(data);
+				
+			}
+		
+		
+		); 
+	}catch(e)
+	{
+
+		showErr(e);
+			console.log(e);
+	}
+
+}
+function pre_img(li)
+{
+
+
+	$.preloadImages = function(li) {
+	  for (var i = 0; i < li.length; i++) {
+
+	  			try{
+	  	var o=li[i];
+	    $("<img />").attr("src",  o.bigpic );
+
+	    pre_save(o.bigpic);
+	    pre_save(o.thumb);
+
+	    if(i>20)
+	    	break;  //for test dbg
+				}catch(e){}
+	  }
+	
+	};  //end fun
+	$.preloadImages(li);
+
+	alert( "  pref_img finish");
+
 }
 
 function get_posts_callback(data)
@@ -522,13 +559,23 @@ function get_posts_callback(data)
 	
 	try{
 //	alert(data);
-$('#table1').html("");
-	var li=str2json(data);
-	　$("#table1_tmpl").tmpl(li).appendTo('#table1');
- 	$("#table1_tmpl").hide();
-set_first_selected();
-bindEvent_4_dataBlock();
-bindEvt_4_playIcon();
+		$('#table1').html("");
+		var li=str2json(data);
+		　$("#table1_tmpl").tmpl(li).appendTo('#table1');
+		$("#table1_tmpl").hide();
+		set_first_selected();
+		bindEvent_4_dataBlock();
+		bindEvt_4_playIcon();
+
+/*
+		 window.setTimeout(function(){
+
+ 				pre_img(li);
+
+		 },1000);	
+
+*/
+		 
 	}catch(e)
 	{
 		showErr(e);	
@@ -557,8 +604,64 @@ function Cate_click(cate)
 
 
 }
+
+
+
+function addCloud()
+{
+var s='<img id="cloud_img" class="b2_cloud" src="../com.attilax/effect/cloudFloat/2_cloud.png" alt="">';
+ var oScript= document.createElement("img"); 
+	
+    oScript.src="../com.attilax/effect/cloudFloat/2_cloud.png"; 
+    oScript.class="b2_cloud";
+    oScript.id="cloud_img";
+    oScript.style.display="none";
+	 
+	 var oHead=document.getElementById('main_div');
+    oHead.appendChild( oScript); 
+
+}
 function page_load()
 {
+/*	
+
+try{
+
+			 
+
+
+			   var  name="V字仇杀队";   //name=encodeURIComponent(name);
+				var img_url="cms/maindir/"+name+"/poster.jpg";
+				var host=window.location.origin;
+				var img_url_final=host+"/"+img_url;
+				alert( "----pre save is:"+img_url_final);
+		 
+
+
+			 var rzt_saveic=	jsBridge.invoke4("com.attilax.img.imgx4android.save2local",img_url_final,"$sd$/0localimg","/cms/maindir");
+			 	alert("--rzt_saveic::"+rzt_saveic);
+
+
+			var	 url=dePrefix( "maindir/V字仇杀队/poster.jpg");
+
+				var rzt=	jsBridge.invoke2("com.attilax.img.imgx4android.toDataUriBase64","$sd$/0localimg/"+url);
+				alert("--rzt::"+rzt);
+				alert("-- .imgx4android.save2local");
+
+		}catch(e)
+		{
+			//showErr(e);
+			var err="msg:"+e.message+"\n"+"  lineNumber:"+e.lineNumber+ "\n err_number:"+e.number+"\n  "+"  desc:"+e.description +"\n columnNumber:"+e.columnNumber
+ +"\n fileName:"+e.fileName+"\n stack:"+e.stack;
+ 		//	$("#textarea").val(err+"\n"+$("#textarea").val());
+ 		alert(err);
+		}
+		alert("--end");
+	return;
+
+*/
+
+	imgid4rotato="thumb_img";
 	 	var meth="com.attilax.dataService.DataService.exe";
 					meth=encodeURIComponent(meth);
 					//sql="+get_posts_sql
@@ -569,6 +672,30 @@ function page_load()
 	//	var mp="$method="+meth+"&$callback=get_posts_callback&$table="+tableStroePath+"&rdm="+Math.random()+"&$op=select&$storeEngiee=folderAsRow";
 
 		 Cate_click("动作");
+
+			Ulist2=new Ulist("table1"); 
+			tmp_Ulist=Ulist2;
+			Ulist2.up2end=function()
+			{
+
+		//	cateBlock.focusNowSelectedControl();
+			};
+
+			 cateBlock=new CateDiv("table2");
+			 cateBlock.datablock=Ulist2;
+			tmp_cateObj=cateBlock;
+
+
+   window.setTimeout(function(){
+     //  searchboxQ3.show();
+     //  searchboxQ3.bindKeyEvent();
+	//   searchboxQ3.buildIndex();   //gene index once 
+
+
+   },2000);
+
+	//		addCloud(); cloud_start();
+
 
 			//for test
 	//	var d=	 JSON.stringify(test_data);

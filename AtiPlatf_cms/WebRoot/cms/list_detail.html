@@ -53,7 +53,7 @@ var import_base="../";
 
   <link rel="stylesheet" href="../com.atilax.frmwk/AmazeUI-2.4.2/assets/css/amazeui.min.css">
   <link href="list_detail.css" rel="stylesheet" type="text/css" />
-  <link href="custom.css" rel="stylesheet" type="text/css" />
+  <link href="../com.attilax/ui/searchbox_android.css" rel="stylesheet" type="text/css" />
   
   <!-- amaz end-->
 
@@ -92,22 +92,45 @@ var import_base="../";
 <script type="text/javascript" src="../com.attilax/ui/toast.js"></script>
 
   <link rel="stylesheet" href="../com.atilax.frmwk/font-awesome-4.5.0/css/font-awesome.css">
+ 
+  <link rel="stylesheet" href="../com.attilax/ui/ul.css">
+
 <script >
 //window.alert=Toast;
+
+
 window.alert=function(msg)
 {
+  console.log(msg);
+ //  alert(msg);
+ // $("#textarea").val($("#textarea").val()+"\n"+msg);
 //	
 }
+/**/
 </script>
 </head>
 
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" tracingsrc="img/main.jpg" tracingopacity="100">
+<script type="text/javascript">
+var o=window.navigator ;
+  var errmsg=JSON.stringify(window.navigator );
+  errmsg=errmsg+"  cpuClass:"+o.cpuClass+"  platform:"+o.platform;
+//document.write( errmsg  );
+
+
+</script>
 <div style="display:none" class="dbg_div">
 <input name="" type="button"  onclick=" KEYCODE_MENU_handle();" style="width:300px;"/>
 <input name="" type="button"  onclick=" show_searchbox()" style="width:300px;" value="show search box"/>
 
 <input name="" type="button"  onclick=" javascript:window.location.reload()" style="width:100px;" value="reload"/>
 <input name="input" type="button"  onclick=" javascript:KEYCODE_BACK_handle()" style="width:100px;" value="ret evt"/>
+
+<input name="input" type="button"  onclick=" javascript:page_load()" style="width:100px;" value="page_load evt"/>
+
+<input name="input" type="button"  onclick=" javascript:Cate_click('动作');" style="width:100px;" value="cate click evt"/>
+ 
+<textarea name="textarea" id="textarea" cols="45" rows="20" style="display:none"></textarea>
 </div>
 
 <div style=" width:1280px; height:720px;" id="main_div">
@@ -145,7 +168,7 @@ window.alert=function(msg)
 <!--   -->
 <table border="0">
   <tr>
-    <td width="100"><span class="am-icon-play-circle-o am-icon-lg title_playIcon " style="font-size:40px;" id="title_playIcon" ></span></td>
+    <td width="100"><span class="am-icon-play-circle-o am-icon-lg title_playIcon  am-icon-spin" style="font-size:40px;" id="title_playIcon" ></span></td>
     <td><div id="title_div"></div>
     评分：<span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span> <span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span><span class="am-icon-star am-icon-lg star_cls"  ></span>
     </td>
@@ -165,9 +188,10 @@ window.alert=function(msg)
 
 <!--searchBox1 -->
 <div id="searchBox1" class="searchbox">
+<div class="searchbox_layout">
 <div class="textbox"></div>
         <div class="keypad">
-            <div style="width:812px;float:left">
+            <div style="float:left" class="softkey_alphabetArea">
                 <a class="key hover" href="javascript:void(0)" e="key">A</a>
                 <a class="key" href="javascript:void(0)" e="key">B</a>
                 <a class="key" href="javascript:void(0)" e="key">C</a>
@@ -196,9 +220,9 @@ window.alert=function(msg)
                 <a class="key" href="javascript:void(0)" e="key">X</a>
                 <a class="key" href="javascript:void(0)" e="key">Y</a>
                 <a class="key" href="javascript:void(0)" e="key">Z</a>
-                <a class="key" href="javascript:void(0)" e="key_space">空格</a>
+                <a class="key" href="javascript:void(0)" e="key_space">…</a>
             </div>
-            <div style="width:274px;float:left">
+            <div style=" float:left" class="softkey_numArea">
                 <a class="key" href="javascript:void(0)" e="key">1</a>
                 <a class="key" href="javascript:void(0)" e="key">2</a>
                 <a class="key" href="javascript:void(0)" e="key">3</a>
@@ -210,11 +234,12 @@ window.alert=function(msg)
                 <a class="key" href="javascript:void(0)" e="key">9</a>
             </div>
 
-            <div style="width:180px;float:left">
+            <div style="width:180px;float:left" class="softkey_opArea">
                 <a class="key" href="javascript:void(0)" e="key">0</a>
-                <a class="key" href="javascript:void(0)" e="key_backspace" style="width:70px;background-color:#d76">←</a>
-                <a class="key" href="javascript:void(0)" e="key_search" style="width:170px;background-color:#0c8;height:170px;line-height:170px;">搜索</a>
+                <a class="key softkey_back" href="javascript:void(0)" e="key_backspace" style="">←</a>
+                <a class="key softkey_searchkey" href="javascript:void(0)" e="key_search" style="">搜索</a>
             </div>
+        </div>
         </div>
 </div>
 <script src="list_4vod.js"></script>
@@ -223,12 +248,12 @@ window.alert=function(msg)
 // $("#main_div").css("background","img/main.jpg");
 
 
-page_load();
+ 
 
 //alert("ttt");
-$(".searchbox").hide();
-$("#table2_tmpl").hide();
+//$("#table2_tmpl").hide();
 $("#cate_menu_div").hide();//cate div
+$(".searchbox").hide();//cate div
 
 </script>
 <script defer="defer">
@@ -236,7 +261,31 @@ window.onload=function()
 {
 if(UrlParm.parm('dbg')==1)
 	$(".dbg_div" ).show();	
+	
+	
+  $(   function(){
+
+    page_load();  
+  }  );
+
+
+/*
+  setPicSrc("aaaa",function(data)
+{
+  alert(data);
+});
+*/
+	
+	
+	
+	
 }
+
+
+ 
 </script>
+<div class="settingBlock">
+
+</div>
 </body>
 </html>

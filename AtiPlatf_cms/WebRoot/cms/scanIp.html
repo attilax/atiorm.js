@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+<script>
+var hre_web_url ="/wrmiServlet";
+var apiurl="/wrmiServlet";
+var import_base="../";
+$ex_show_err_str=true;
+
+</script>
+<script type="text/javascript" src="../com.attilax/core/import.js"></script>
+<script type="text/javascript" src="../com.attilax/approot_jsV3q324.jsp"></script>
+<script type="text/javascript" src="../com.attilax/core/core.js"></script>
+<script type="text/javascript" src="../com.atilax.frmwk/jquery-1.11.3.js"></script>
+<script>
+importx("com.attilax/web/req.js");
+importx("com.attilax/ui/focus.js");
+importx("com.attilax/ui/ul.js");
+   importx("com.attilax/templete/jquery.tmpl.js");
+importx("./cate.js");
+//importx("com.attilax/ui/searchbox_android.css");
+ importx("com.attilax/effect/rotato/css.css");
+  importx("com.attilax/effect/rotato/js.js");
+ importx("com.attilax/effect/cloudFloat/cloud.css");
+  importx("com.attilax/effect/cloudFloat/cloud.js");
+     importx("com.attilax/ui/TableV3.js");
+	    importx("com.attilax/jsbridge/jsb_v7q329.js");
+  
+  </script>
+</head>
+
+<body>
+<p>
+  <input type="button" name="button" id="button" value="scan">
+</p>
+<table width="100%" border="1" id="table1">
+  <tbody>
+    <tr>
+      <td>ip</td>
+      <td>op</td>
+    </tr>
+    <tr>
+      <td>${ip}</td>
+      <td><input type="button" name="button2" id="button2" value="保存此设置"></td>
+    </tr>
+  </tbody>
+</table>
+
+<script defer>
+function page_load()
+{
+	
+	var test_data=[{ "ip":"192.168.2.114", "url":"http://@ip@:8080/cms/list_detail.html" }] ;
+	var tb=new TableV3("table1");
+	//tb.bindData(test_data);
+	
+		 try{
+	var ds=new AtiJsBridge();
+		//ds.formid="formx";
+	//	alert();
+	//	var s="update  `wxb_order` set stat='取消' where user_id=$uid$ and oid="+order_id;
+	//	s=encodeURIComponent(s);
+		ds.exe("$method=aaaaaVod.ScanIp.getIps&$tbtype=sq&$trigger000=com.attilax.dataService.meta_data_pars_from_txt_trigger&$trigtime=after&order_id=$uuid"+"&user_id=$uid&$member_id=$uid",function(data){
+			console.log("--r:"+data);
+		//	alert("操作成功");
+				data=str2json(data);
+				var tb=new TableV3("table1");
+				tb.bindData(data);
+		//   data=str2json(data);
+		//　$("#table1_tmpl").tmpl(data).appendTo('#table1');	
+	    //  $("#table1 tr").eq(1).hide(); //tr0 is head ,,tr1 is tmpl
+			
+		}
+		
+		
+		); 
+	}catch(e)
+	{
+		showErr(e);
+	}
+	
+}
+
+
+window.onload=function(){page_load();};
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+<script>
+var hre_web_url ="/wrmiServlet";
+var apiurl="/wrmiServlet";
+var import_base="../";
+$ex_show_err_str=true;
+
+</script>
+<script type="text/javascript" src="../com.attilax/core/import.js"></script>
+<script type="text/javascript" src="../com.attilax/approot_jsV3q324.jsp"></script>
+<script type="text/javascript" src="../com.attilax/core/core.js"></script>
+<script type="text/javascript" src="../com.atilax.frmwk/jquery-1.11.3.js"></script>
+<script>
+importx("com.attilax/web/req.js");
+importx("com.attilax/ui/focus.js");
+importx("com.attilax/ui/ul.js");
+   importx("com.attilax/templete/jquery.tmpl.js");
+importx("./cate.js");
+//importx("com.attilax/ui/searchbox_android.css");
+ importx("com.attilax/effect/rotato/css.css");
+  importx("com.attilax/effect/rotato/js.js");
+ importx("com.attilax/effect/cloudFloat/cloud.css");
+  importx("com.attilax/effect/cloudFloat/cloud.js");
+     importx("com.attilax/ui/TableV3.js");
+	    importx("com.attilax/jsbridge/jsb_v7q329.js");
+  
+  </script>
+  
+    <script type="text/javascript" src="js.js"></script>
+  <script type="text/javascript" src="../com.attilax/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="../com.attilax/dwr.js"></script>
+  <script type="text/javascript" src="../com.attilax/core/jqx.js"></script>
+  <script type="text/javascript" src="../com.attilax/core/core.js"></script>
+  <script type="text/javascript" src="../com.attilax/io/upload.js"></script>
+    <script type="text/javascript" src="../com.attilax/io/uploadV2.js"></script><link rel="stylesheet" type="text/css" href="style360.css"/>
+    
+    
+</head>
+
+<body>
+
+
+<form id="formx" style="padding:0px; margin:0px;">
+<div style=" padding-top:1px; margin-left: auto; margin-right: auto; text-align: left; width: 320px; height: 520px; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-image: url(h5-2.jpg?aa);" id="page">
+<div onclick="window.location.reload()" style="height:30px;"></div>
+<div id="editArea"></div><!--aa-->
+<input   id="filex" type="file" name="fileField"   style="display:nonex"  onchange="uploadSrv.upload()"/>
+  <div id="uppic_btn" name="btn" type="button"  style="  margin-top:0px ;  height:30px ; background-color:#0AEAFD "  onclick="custom_browserBtn_click();" >浏览按钮
+    <!-- process bar q414  add recomm-->
+  <div id="process_div"></div>
+  </div>
+ 
+
+</div>
+ <input name="file_val" type="hidden" id="file_val" value="" />
+ <input name="method" type="hidden" id="method" value="login" />
+<script defer>
+// $app_path="/lime";  for test
+var saveDir="00upQ4";
+saveDir=encodeURIComponent(saveDir);
+var uploadSrv=new  AtiUpload();
+uploadSrv.up_url=$approot+"/upServlet?savepath="+saveDir;
+uploadSrv.upload_finish_handler=function(data){
+	alert("上传结束返回结果:"+data);
+};
+function custom_browserBtn_click()
+{
+	$("#filex").click();
+}
+ 
+
+</script> 
+</form>
+<script defer>
+function page_load()
+{
+	
+	 
+}
+
+
+window.onload=function(){page_load();};
+
+
+</script>
+</body>
+</html>
